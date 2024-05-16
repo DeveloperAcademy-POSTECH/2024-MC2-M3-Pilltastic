@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+// 변경
 struct MainView: View {
     @State private var showingPopover = false
     var body: some View {
