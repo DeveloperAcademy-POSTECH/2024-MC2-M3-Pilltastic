@@ -17,6 +17,9 @@ struct ContentView: View {
             NavigationLink(destination: MainView()){
                 Text("MainView")
             }
+            NavigationLink(destination: OnboardingView01()){
+                Text("OnboardingView")
+            }
         }
         
     }
