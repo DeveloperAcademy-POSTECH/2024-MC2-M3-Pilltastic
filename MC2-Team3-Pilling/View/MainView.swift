@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-
+// 변경
 struct MainView: View {
     @State private var showingPopover = false
     var body: some View {
-        NavigationStack {
+//        NavigationStack {
             ZStack {
                 LinearGradient(stops: [.init(color: .customGreen.opacity(0.3), location: 0), .init(color: .white, location: 0.15)], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
@@ -119,7 +119,7 @@ struct MainView: View {
                 }
                 .padding()
             }
-        }
+//        }
     }
 }
 
