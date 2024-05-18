@@ -64,9 +64,11 @@ struct widgetLiveActivity: Widget {
                     }
                 }
             } compactLeading: {
-                Text("L")
+                Image(systemName: "leaf.fill")
+                    .foregroundColor(.customGreen)
             } compactTrailing: {
-                Text("T \(context.state.time)")
+                Text("\(context.state.time)")
+                    .foregroundColor(.customGreen)
             } minimal: {
                 Text(context.state.time)
             }
