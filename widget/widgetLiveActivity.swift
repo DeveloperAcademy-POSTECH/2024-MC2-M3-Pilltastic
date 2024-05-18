@@ -12,22 +12,29 @@ import SwiftUI
 struct widgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         // Dynamic stateful properties about your activity go here!
-        var emoji: String
+        var time: String
     }
 
     // Fixed non-changing properties about your activity go here!
-    var name: String
+    var message: String
 }
 
 struct widgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: widgetAttributes.self) { context in
             // Lock screen/banner UI goes here
-            VStack {
-                Text("Hello \(context.state.emoji)")
+            HStack {
+                Image(systemName: "leaf.fill")
+                    .foregroundColor(.customGreen)
+                Text("잔디를 심을 시간이에요!")
+                    .foregroundStyle(.white)
+                Spacer()
+                Text("\(context.state.time)")
+                    .font(.title)
+                    .foregroundStyle(.green)
             }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
+            .padding()
+            .background(.black)
 
         } dynamicIsland: { context in
             DynamicIsland {
@@ -40,15 +47,15 @@ struct widgetLiveActivity: Widget {
                     Text("Trailing")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
+                    Text("Bottom \(context.state.time)")
                     // more content
                 }
             } compactLeading: {
                 Text("L")
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text("T \(context.state.time)")
             } minimal: {
-                Text(context.state.emoji)
+                Text(context.state.time)
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
@@ -58,17 +65,17 @@ struct widgetLiveActivity: Widget {
 
 extension widgetAttributes {
     fileprivate static var preview: widgetAttributes {
-        widgetAttributes(name: "World")
+        widgetAttributes(message: "잔디를 심을 시간이에요!")
     }
 }
 
 extension widgetAttributes.ContentState {
     fileprivate static var smiley: widgetAttributes.ContentState {
-        widgetAttributes.ContentState(emoji: "😀")
+        widgetAttributes.ContentState(time: "+10:00")
      }
      
      fileprivate static var starEyes: widgetAttributes.ContentState {
-         widgetAttributes.ContentState(emoji: "🤩")
+         widgetAttributes.ContentState(time: "-10:00")
      }
 }
 
