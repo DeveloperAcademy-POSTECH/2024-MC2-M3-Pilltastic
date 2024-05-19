@@ -20,6 +20,13 @@ struct widgetAttributes: ActivityAttributes {
 }
 
 struct widgetLiveActivity: Widget {
+    var alarmTime = dateFormat.date(from: "21:00:00")!
+    var nowTime = Date.now
+    static let dateFormat: DateFormatter = {
+         let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+         return formatter
+     }()
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: widgetAttributes.self) { context in
             // Lock screen/banner UI goes here
@@ -49,7 +56,7 @@ struct widgetLiveActivity: Widget {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(context.attributes.message)")
-                                Text("\(context.state.time)")
+                                Text("\(alarmTime.formatted(date: .omitted, time: .standard))...\(context.state.time)")
                                     .font(.title2)
                                     .bold()
                                     .foregroundStyle(.customGreen)
@@ -71,6 +78,7 @@ struct widgetLiveActivity: Widget {
                     .foregroundColor(.customGreen)
             } minimal: {
                 Text(context.state.time)
+                    .foregroundColor(.customGreen)
             }
             .widgetURL(URL(string: "http://www.apple.com"))
             .keylineTint(Color.red)
