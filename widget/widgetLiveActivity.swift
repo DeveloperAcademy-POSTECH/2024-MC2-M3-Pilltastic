@@ -27,6 +27,10 @@ struct widgetLiveActivity: Widget {
         formatter.dateFormat = "HH:mm:ss"
          return formatter
      }()
+    static let dateFormatter2 = DateComponentsFormatter()
+    var restTime: TimeInterval {
+        alarmTime.timeIntervalSince(nowTime)
+    }
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: widgetAttributes.self) { context in
             // Lock screen/banner UI goes here
@@ -56,7 +60,7 @@ struct widgetLiveActivity: Widget {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(context.attributes.message)")
-                                Text("\(alarmTime.formatted(date: .omitted, time: .standard))...\(context.state.time)")
+                                Text("\(alarmTime.formatted(date: .omitted, time: .standard))...\(widgetLiveActivity.dateFormatter2.string(from: restTime))")
                                     .font(.title2)
                                     .bold()
                                     .foregroundStyle(.customGreen)
