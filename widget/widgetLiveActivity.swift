@@ -61,28 +61,25 @@ struct widgetLiveActivity: Widget {
             DynamicIsland {
                 // Expanded UI goes here.  Compose the expanded UI through
                 // various regions, like leading/trailing/center/bottom
-                DynamicIslandExpandedRegion(.leading) {
+                DynamicIslandExpandedRegion(.center) {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(restTime)
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.customGreen)
+                            Text("\(context.attributes.message)")
+                        }
+                        Image(systemName: "alarm")
+                                .scaledToFill()
+                                .foregroundColor(.customGreen)
+                    }
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    VStack(alignment: .leading) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("\(context.attributes.message)")
-                                Text(restTime)
-                                    .font(.title2)
-                                    .bold()
-                                    .foregroundStyle(.customGreen)
-                            }
-                            Spacer()
-                            Image(systemName: "leaf.fill")
-                                .foregroundColor(.customGreen)
-                                .font(.largeTitle)
-                        }
                         Button("잔디 심으러 가기") {}
                             .frame(maxWidth: .infinity)
-                    }
                 }
             } compactLeading: {
                 Image(systemName: "leaf.fill")
