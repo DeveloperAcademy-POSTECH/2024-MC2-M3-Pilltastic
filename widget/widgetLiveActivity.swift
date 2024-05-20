@@ -20,14 +20,17 @@ struct widgetAttributes: ActivityAttributes {
 }
 
 struct widgetLiveActivity: Widget {
-    var alarmTime = dateFormat.date(from: "21:00:00")!
-    var nowTime = Date.now
-    static let dateFormat: DateFormatter = {
-         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
-         return formatter
-     }()
-    static let dateFormatter2 = DateComponentsFormatter()
+    static let dateFormatter: DateFormatter = {
+       let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy_HH:mm:ss"
+        return formatter
+    }()
+    static let timeIntervalFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        return formatter
+    }()
+    @State private var nowTime = Date.now
+    @State private var alarmTime = dateFormatter.date(from: "\(Date.now.formatted(date: .numeric, time: .omitted))_23:00:00")!
     var restTime: TimeInterval {
         alarmTime.timeIntervalSince(nowTime)
     }
@@ -60,7 +63,7 @@ struct widgetLiveActivity: Widget {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(context.attributes.message)")
-                                Text("\(alarmTime.formatted(date: .omitted, time: .standard))...\(widgetLiveActivity.dateFormatter2.string(from: restTime))")
+                                Text("\(widgetLiveActivity.timeIntervalFormatter.string(from: restTime)!)")
                                     .font(.title2)
                                     .bold()
                                     .foregroundStyle(.customGreen)
