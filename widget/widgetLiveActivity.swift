@@ -91,7 +91,7 @@ struct widgetLiveActivity: Widget {
                 Text("\(context.state.time)")
                     .foregroundColor(.customGreen)
             } minimal: {
-                Text(context.state.time)
+                Image(systemName: "leaf.fill")
                     .foregroundColor(.customGreen)
             }
             .widgetURL(URL(string: "http://www.apple.com"))
