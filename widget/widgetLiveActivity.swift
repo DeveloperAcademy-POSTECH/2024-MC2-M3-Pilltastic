@@ -31,8 +31,15 @@ struct widgetLiveActivity: Widget {
     }()
     @State private var nowTime = Date.now
     @State private var alarmTime = dateFormatter.date(from: "\(Date.now.formatted(date: .numeric, time: .omitted))_23:00:00")!
-    var restTime: TimeInterval {
-        alarmTime.timeIntervalSince(nowTime)
+    var restTime: String {
+        let tempTime = nowTime.timeIntervalSince(alarmTime)
+        if tempTime > 0 {
+            return "+\(widgetLiveActivity.timeIntervalFormatter.string(from: tempTime)!)"
+        } else if tempTime < 0 {
+            return "\(widgetLiveActivity.timeIntervalFormatter.string(from: tempTime)!)"
+        } else {
+            return "00:00"
+        }
     }
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: widgetAttributes.self) { context in
@@ -63,7 +70,7 @@ struct widgetLiveActivity: Widget {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(context.attributes.message)")
-                                Text("\(widgetLiveActivity.timeIntervalFormatter.string(from: restTime)!)")
+                                Text(restTime)
                                     .font(.title2)
                                     .bold()
                                     .foregroundStyle(.customGreen)
