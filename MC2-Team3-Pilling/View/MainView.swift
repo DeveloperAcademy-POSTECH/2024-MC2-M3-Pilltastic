@@ -223,6 +223,18 @@ struct MainView: View {
                 LiveActivityView(alarmTime: Config.AlarmStringToDate(dateString: timeString)!)
                     .opacity(0.0)
             }
+//            VStack{
+//                Spacer()
+//                Rectangle()
+//                    .frame(width: 400, height: 400)
+//                    .foregroundColor(.clear)
+//                    .overlay {
+//                        LottieView(animationFileName: "ButtonLottie", loopMode: .loop)
+//                        
+//                    }
+//                
+//                Spacer()
+//            }
         }
         .sheet(isPresented: $isModal){
             ChooseStatusView(showingChooseStatus: $isModal, dayData: $dayData)
