@@ -31,9 +31,7 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            
             gradientView
-            
             VStack(spacing: 10) {
                 HStack {
                     Spacer()
@@ -86,8 +84,6 @@ struct MainView: View {
                             .frame(width: 200, height: 200)
                     }
                     
-                    
-                    
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {
                             Text("\(today)일차")
@@ -99,9 +95,7 @@ struct MainView: View {
                             else{
                                 Text("")
                             }
-                            
                         }
-                        
                         if let intakeDay=user.first?.curPill?.pillInfo.intakeDay,let placeboday=user.first?.curPill?.pillInfo.placeboDay{
                             Label("\(String(describing: intakeDay))/\(String(describing: placeboday))", systemImage: "calendar")
                                 .secondaryRegular()
@@ -112,11 +106,9 @@ struct MainView: View {
                         
                         Label(user.first?.scheduleTime ?? "00:00", systemImage: "clock.fill")
                             .secondaryRegular()
-                        
                     }
                     Spacer()
                 }
-                
                 // now statement
                 HStack {
                     Image(systemName: "drop")
@@ -130,27 +122,22 @@ struct MainView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color.customGray, lineWidth: 1)
                 )
-                
+                Spacer()
                 // calendar view
                 VStack(spacing: 10) {
                     HStack {
                         ForEach(startWeekNum...(startWeekNum+6),id:\.self){ num in
                             DayView(num: (num%7))
                         }
-                        
                     }
                     .regular()
-                    
+
                     ForEach(0..<week) { y in
                         HStack {
                             ForEach(0..<7) { x in
                                 let idx = y * 7 + x
-                                
                                 let status = sortedDay[idx].status
                                 let isToday = today-1 == idx
-                                
-                                
-                                
                                 switch status {
                                 case 3: // 위약
                                     PlaceboCell(isModal: $isModal, dayData: sortedDay[idx], backgroundColor: Color.white, isToday: isToday)
@@ -159,7 +146,6 @@ struct MainView: View {
                                             isModal = true
                                             print(isModal)
                                         }
-                                    
                                 case 0:
                                     if idx < today-1{
                                         ActivateCell(isModal: $isModal, backgroundColor: .customBrown,isToday:isToday)
@@ -177,7 +163,6 @@ struct MainView: View {
                                                 print(isModal)
                                             }
                                     }
-                                    
                                 case 1:
                                     ActivateCell(isModal: $isModal, backgroundColor: .customGreen,isToday:isToday)
                                         .onTapGesture {
@@ -185,7 +170,6 @@ struct MainView: View {
                                             isModal = true
                                             print(isModal)
                                         }
-                                    
                                 case 2:
                                     TwoCell(isModal: $isModal, backgroundColor: .customBrown,isToday:isToday)
                                         .onTapGesture {
@@ -193,8 +177,6 @@ struct MainView: View {
                                             isModal = true
                                             print(isModal)
                                         }
-                                    
-                                    
                                 default:
                                     EmptyView()
                                 }
@@ -216,13 +198,9 @@ struct MainView: View {
                         .padding(.vertical, 25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.black)
-                    
-                    
                 })
                 .buttonStyle(CustomButtonStyle(isDisabled: sortedDay[today-1].status != 0))
                 .disabled(sortedDay[today-1].status != 0)
-                
-                
             }
             .padding()
             // 알람 시간(type: Date)을 alarmTime에 넘겨주세요
@@ -237,9 +215,7 @@ struct MainView: View {
         }
         .onChange(of: isModal){
             refreshData(today: today, sortedDay: sortedDay)
-            
         }
-        
         .onAppear {            
             calculateData()
             refreshData(today: today, sortedDay: sortedDay)

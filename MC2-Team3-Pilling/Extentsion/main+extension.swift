@@ -31,7 +31,7 @@ extension MainView{
             statusNum = 6
         }
         else {
-            statusNum = 0
+            statusNum = 1
         }
         
         return statusNum
